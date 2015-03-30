@@ -24,10 +24,8 @@
 </head>
 
 <body>
-	<form action="<%= path%>/search">
-		验证码：<img alt="" src="http://gsxt.saic.gov.cn/zjgs/captcha?preset=&ra=0.030452584000915772">
+	<form action="<%= path%>/search" method="post">
 		<input type="text" name="captcha"><br>
-		<input type="text" name="keyword"><br>
 		<input type="submit" value="搜索">
 	</form>
 	输入企业名称或者注册编号

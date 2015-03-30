@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
+import com.zht.util.EntInfoList;
 import com.zht.util.PopupCaptcha;
 
 public class SearchServlet extends HttpServlet {
@@ -34,36 +32,18 @@ public class SearchServlet extends HttpServlet {
 		super.destroy(); // Just puts "destroy" string in log
 		// Put your code here
 	}
-
+	String[] tokenArray = null ;
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String captcha = request.getParameter("captcha");
-		String keyWord = request.getParameter("keyword");
-		String session = request.getSession().getId();
-		try {
-			String token = PopupCaptcha.getToken();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
+		 tokenArray = PopupCaptcha.getToken().split(",");
+		 response.sendRedirect(request.getContextPath()+"/vc.jsp");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		String captcha = request.getParameter("captcha");
+		String content = EntInfoList.getResult(captcha, tokenArray[0] , tokenArray[1]);
+		System.out.println(content);
 	}
 
 	/**

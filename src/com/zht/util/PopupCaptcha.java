@@ -1,9 +1,11 @@
 package com.zht.util;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -11,17 +13,36 @@ import org.apache.http.util.EntityUtils;
 
 public class PopupCaptcha {
 	
-	public static String getToken() throws Exception{
+	public static String getToken() {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet getToken = new HttpGet("http://gsxt.saic.gov.cn/zjgs/search/popup_captcha");
-		HttpResponse responseToken = httpClient.execute(getToken);
-		String content = EntityUtils.toString(responseToken.getEntity());
-		Pattern zp = Pattern.compile("session.token\": \"(.*?)\"");
-		Matcher zm = zp.matcher(content);
-		if(zm.find()) {
-			return zm.group(1);
+		
+		HttpGet getUrl= new HttpGet("http://gsxt.saic.gov.cn/zjgs/search/popup_captcha");
+		String setCookies = CaptchaImg.getCaptchaImg();
+		
+		getUrl.addHeader("Cookie", setCookies);//’‚¿Ô «Õº∆¨Cookies
+		
+//		getUrl.setHeader("Cookie", setCookies);
+		
+		HttpResponse responseToken;
+		try {
+			responseToken = httpClient.execute(getUrl);
+			String content = EntityUtils.toString(responseToken.getEntity());
+			Pattern zp = Pattern.compile("session.token\": \"(.*?)\"");
+			Matcher zm = zp.matcher(content);
+			if(zm.find()) {
+				return zm.group(1)+","+setCookies;
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		httpClient.close();
 		return null;
 	}
 	
