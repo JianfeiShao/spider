@@ -30,6 +30,9 @@ public class EntInfoList {
 		params.add(new BasicNameValuePair("condition.pageNo","1"));
 		params.add(new BasicNameValuePair("condition.keyword","顺丰"));
 		
+//		UrlEncodedFormEntity 普通 from 表单
+//		MultipartEntityBuilder enctype=”multipart/form-data”  区别
+		
 //		MultipartEntityBuilder entity = MultipartEntityBuilder.create();
 //		entity.addTextBody("captcha", captcha);
 //		entity.addTextBody("condition.pageNo", "1");

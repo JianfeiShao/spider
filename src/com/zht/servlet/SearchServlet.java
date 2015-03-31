@@ -1,7 +1,6 @@
 package com.zht.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +44,7 @@ public class SearchServlet extends HttpServlet {
 		String content = EntInfoList.getResult(captcha, tokenArray[0] , tokenArray[1]);
 		System.out.println(content);
 	}
-
+	
 	/**
 	 * Initialization of the servlet. <br>
 	 *

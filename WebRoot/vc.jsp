@@ -25,9 +25,8 @@
 
 <body>
 	<form action="<%= path%>/search" method="post">
-		<input type="text" name="captcha"><br>
+		验证码<input type="text" name="captcha"><br>
 		<input type="submit" value="搜索">
 	</form>
-	输入企业名称或者注册编号
 </body>
 </html>

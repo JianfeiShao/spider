@@ -11,6 +11,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DownLoad {
 	private static Set<String> visitedUrl = new HashSet<String>();
@@ -64,7 +66,9 @@ public class DownLoad {
 		
 	}
 	
+	private static final Logger log = LoggerFactory.getLogger("xxxx.xxx.xxx");
 	public static void main(String[] args) throws Exception{
 		System.out.println(URLEncoder.encode("Ë³·á","utf-8"));
+		log.debug("xxxxx");
 	}
 }
